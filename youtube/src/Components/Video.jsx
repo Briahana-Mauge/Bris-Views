@@ -4,6 +4,7 @@ import CommentForm from './CommentForm'
 import Comments from './Comments'
 class Video extends React.Component {
     constructor(props) {
+        console.log(props)
         super()
         this.state = {
             id: props.location.pathname.replace(`/video/`, ``),
@@ -21,7 +22,7 @@ class Video extends React.Component {
         event.preventDefault();
         const { name, comment, comments } = this.state;
         let newComments = [...comments]
-        newComments.push({
+        newComments.unshift({
             name: name,
             comment: comment
         })
@@ -30,14 +31,10 @@ class Video extends React.Component {
             comments: newComments
         })
     }
-    handleNameChange = (event) => {
+    handleInput = (event) => {
+        const{name, value} = event.target
         this.setState({
-            name: event.target.value
-        })
-    }
-    handleCommentChange = (event) => {
-        this.setState({
-            comment: event.target.value
+            [name]: value
         })
     }
     render() {
@@ -45,7 +42,7 @@ class Video extends React.Component {
             height: `390`,
             width: `640`,
         }
-        const { id, comments } = this.state
+        const { id, comments, name, comment } = this.state
         return (
             <>
                 <YouTube videoId={id}
@@ -54,9 +51,10 @@ class Video extends React.Component {
 
                 <br></br>
                 <CommentForm 
-                handleCommentChange = {this.handleCommentChange}
-                handleNameChange = {this.handleNameChange}
-                handleSubmit = {this.handleSubmit}/>
+                handleInput = {this.handleInput}
+                handleSubmit = {this.handleSubmit}
+                name = {name}
+                comment = {comment}/>
                 <br></br>
                 <br></br>
                 <Comments comments = {comments}/>

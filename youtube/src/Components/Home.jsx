@@ -15,23 +15,29 @@ class Home extends React.Component {
     }
     handleSubmit = async (event) => {
         event.preventDefault()
-        const { search, ids } = this.state;
+        const { search } = this.state;
         let videoIDs = [];
+        let newId = []
 
         let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${api}&q=${search}&type=video`
-        let res = await axios.get(searchAPI)
-        videoIDs = res.data.items
-        for (let i = 0; i < videoIDs.length; i++) {
-            ids.push({
-                id: `${videoIDs[i].id.videoId}`,
-                title: `${videoIDs[i].snippet.title}`,
-                thumbnail: `${videoIDs[i].snippet.thumbnails.medium.url}`,
-                width: `${videoIDs[i].snippet.thumbnails.medium.width}`,
-                height: `${videoIDs[i].snippet.thumbnails.medium.height}`
-            })
+        try {
+            let res = await axios.get(searchAPI)
+            videoIDs = res.data.items
+
+            for (let i = 0; i < videoIDs.length; i++) {
+                newId.push({
+                    id: `${videoIDs[i].id.videoId}`,
+                    title: `${videoIDs[i].snippet.title}`,
+                    thumbnail: `${videoIDs[i].snippet.thumbnails.medium.url}`,
+                    width: `${videoIDs[i].snippet.thumbnails.medium.width}`,
+                    height: `${videoIDs[i].snippet.thumbnails.medium.height}`
+                })
+            }
+        } catch (error) {
+            console.log(error)
         }
         this.setState({
-            ids: ids,
+            ids: newId,
             loading: false
         })
     }
@@ -48,7 +54,7 @@ class Home extends React.Component {
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
-                    <input type='text' placeholder='Search for a video' onChange={this.handleSearchInput}></input>
+                    <input type='text' placeholder='Search for a video' onChange={this.handleSearchInput} value={search}></input>
                     <input type='submit' value='Search'></input>
                 </form>
                 {loading ?
