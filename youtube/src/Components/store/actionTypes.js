@@ -1,0 +1,2 @@
+export const RECEIVE_HISTORY = "RECEIVE_HISTORY";
+export const RECEIVE_SEARCH = "RECEIVE_SEARCH";
