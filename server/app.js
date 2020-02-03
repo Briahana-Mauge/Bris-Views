@@ -17,15 +17,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret: "NOT_A_GOOD_SECRET",
-    resave: false,
-    saveUninitialized: true
-  }))
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
+  secret: "NOT_A_GOOD_SECRET",
+  resave: false,
+  saveUninitialized: true
+}))
 
-  // Routes
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
