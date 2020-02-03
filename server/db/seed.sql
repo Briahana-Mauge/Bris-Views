@@ -15,4 +15,4 @@ CREATE TABLE search
     id SERIAL PRIMARY KEY,
     word VARCHAR NOT NULL,
     username VARCHAR REFERENCES users(username)
-)
+);
