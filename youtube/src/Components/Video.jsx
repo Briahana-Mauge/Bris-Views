@@ -2,6 +2,10 @@ import React from 'react'
 import YouTube from 'react-youtube';
 import CommentForm from './CommentForm'
 import Comments from './Comments'
+import { RECEIVE_HISTORY } from './store/actionTypes';
+import { connect } from 'react-redux';
+
+
 class Video extends React.Component {
     constructor(props) {
         console.log(props)
@@ -10,13 +14,19 @@ class Video extends React.Component {
             id: props.location.pathname.replace(`/video/`, ``),
             comment: '',
             name: '',
-            comments:[]
+            comments: [],
+            // history: []
 
         }
     }
     ready = (event) => {
         event.target.pauseVideo()
     }
+    componentDidMount() {
+        const { id } = this.state
+        this.props.receiveHistory(id)
+    }
+
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -32,7 +42,7 @@ class Video extends React.Component {
         })
     }
     handleInput = (event) => {
-        const{name, value} = event.target
+        const { name, value } = event.target
         this.setState({
             [name]: value
         })
@@ -43,6 +53,7 @@ class Video extends React.Component {
             width: `640`,
         }
         const { id, comments, name, comment } = this.state
+
         return (
             <>
                 <YouTube videoId={id}
@@ -50,16 +61,35 @@ class Video extends React.Component {
                     onReady={this.ready} />
 
                 <br></br>
-                <CommentForm 
-                handleInput = {this.handleInput}
-                handleSubmit = {this.handleSubmit}
-                name = {name}
-                comment = {comment}/>
+                <CommentForm
+                    handleInput={this.handleInput}
+                    handleSubmit={this.handleSubmit}
+                    name={name}
+                    comment={comment} />
                 <br></br>
                 <br></br>
-                <Comments comments = {comments}/>
+                <Comments comments={comments} />
             </>
         )
     }
 }
-export default Video;
+//export default Video;
+const mapStateToProps = (state) => {
+    return {
+        historyState: state.historyState
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        receiveHistory: (history) => {
+            console.log(history)
+            dispatch({
+                type: RECEIVE_HISTORY,
+                payload: history
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Video)
