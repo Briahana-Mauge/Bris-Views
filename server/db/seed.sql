@@ -10,9 +10,9 @@ CREATE TABLE users
     password_digest VARCHAR NOT NULL
 );
 
-CREATE TABLE search
+CREATE TABLE history
 (
     id SERIAL PRIMARY KEY,
-    word VARCHAR NOT NULL,
+    video_id VARCHAR NOT NULL,
     username VARCHAR REFERENCES users(username)
 );
