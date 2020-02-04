@@ -1,13 +1,13 @@
 const db = require('../db')
 
-const getAllVideos = async () => {
+const getAllVideos = async (username) => {
 	const videos = await db.any("SELECT * FROM history WHERE username = $1", [username])
 	return videos;
 }
 
-const addVideo = async (video) => {
+const addNewVideo = async (video) => {
 	const newVideoQuery = `
-		INSERT INTO users(video_id, username)
+		INSERT INTO history(video_id, username)
 			VALUES($/video_id/, $/username/)
 			RETURNING video_id, username
 	`
