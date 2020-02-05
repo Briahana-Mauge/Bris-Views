@@ -4,6 +4,7 @@ import CommentForm from './CommentForm'
 import Comments from './Comments'
 import { RECEIVE_HISTORY } from './store/actionTypes';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 
 class Video extends React.Component {
@@ -22,9 +23,18 @@ class Video extends React.Component {
     ready = (event) => {
         event.target.pauseVideo()
     }
-    componentDidMount() {
+    componentDidMount = async()=> {
         const { id } = this.state
         this.props.receiveHistory(id)
+        let url = `http://localhost:2591/history/`
+        
+        try{
+            let video = await axios.post(url)
+            console.log(video)
+        }catch(err){
+            console.log(err)
+        }
+
     }
 
 

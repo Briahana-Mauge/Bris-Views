@@ -30,7 +30,7 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser(async (user, done) => {
-  console.log('deserializing user from session')
+  console.log('deserializing user from session', user)
   try {
     let retrievedUser = await usersQueries.getUserByUsername(user.username)
     delete retrievedUser.password_digest;

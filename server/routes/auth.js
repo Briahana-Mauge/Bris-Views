@@ -33,16 +33,17 @@ router.post("/signup", async (req, res, next) => {
 })
 
 router.post("/login", passport.authenticate('local'), (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   res.json({
-    payload: true,
+    payload: req.body.username,
     message: 'login successful',
     err: false
   })
 })
 
-router.get("/logout", authHelpers.loginRequired, (req, res, next) => {
-  req.logOut()
+router.post("/logout", authHelpers.loginRequired, (req, res, next) => {
+  console.log("log outtt")
+  req.logout()
   res.json({
     payload: null,
     msg: "User logged out successfully",
@@ -51,6 +52,7 @@ router.get("/logout", authHelpers.loginRequired, (req, res, next) => {
 })
 
 router.get("/isUserLoggedIn", authHelpers.loginRequired, (req, res) => {
+  console.log(req.user)
   res.json({
     payload: req.user,
     msg: "User is logged in. Session active",

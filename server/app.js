@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
 var passport = require('./auth/passport')
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +12,10 @@ var authRouter = require('./routes/auth');
 var historyRouter = require('./routes/history');
 
 var app = express();
+app.use(cors({
+  methods:['GET','POST'],
+  credentials: true 
+}))
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -21,12 +21,17 @@ const comparePasswords = async (candidatePassword, passwordDigest) => {
     }
 }
 const loginRequired = (req, res, next) => {
-    if (req.user) return next()
-    res.status(401).json({
-      payload: null,
-      msg: "You need to be logged in to access this route",
-      err: true
-    })
+    console.log("helper running", req.session)
+    if (!req.user) {
+        res.status(401).json({
+            payload: null,
+            msg: "You need to be logged in to access this route",
+            err: true
+          })
+          return;
+    }
+    next()
+
   }
   
 module.exports = {
