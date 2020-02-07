@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 
 import historyReducer from './historyReducers'
-import searchReducer from './searchReducer';
+import logInReducer from './logInReducer';
 
 const rootReducer = combineReducers({
   // partOfState: reducerInCharge 
   historyState: historyReducer,
-  searchState: searchReducer
+  logInState: logInReducer
 })
 
 export default rootReducer;
