@@ -12,10 +12,6 @@ var authRouter = require('./routes/auth');
 var historyRouter = require('./routes/history');
 
 var app = express();
-app.use(cors({
-  methods:['GET','POST'],
-  credentials: true 
-}))
 
 app.use(logger('dev'));
 app.use(express.json());
