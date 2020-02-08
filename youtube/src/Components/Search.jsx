@@ -4,7 +4,7 @@ import Result from './Result';
 // import api from '../secret.js';
 import { RECEIVE_USER} from './store/actionTypes';
 import { connect } from 'react-redux';
-let api = process.env.API_KEY
+// let api = process.env.API_KEY
 
 class Search extends React.Component {
     constructor(props) {
@@ -35,7 +35,7 @@ class Search extends React.Component {
         let newResults = []
         
 
-        let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${api}&q=${search}&type=video`
+        let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${process.env.API_KEY}&q=${search}&type=video`
         try {
             let res = await axios.get(searchAPI)
             videos = res.data.items
