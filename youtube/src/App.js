@@ -44,6 +44,7 @@ import AuthContainer from './Containers/AuthContainer';
 import Home from './Components/Home'
 // import Users from './Components/Users'
 import PrivateRoute from './Components/PrivateRoute'
+
 import axios from 'axios';
 
 class App extends React.Component {
@@ -60,6 +61,8 @@ class App extends React.Component {
       isUserLoggedIn: true, // Since the first thing we do on componentDidMount is to check if the user is logged in in our backend
       loadingUser: false
     })
+   
+    // this.props.receiveUserStatus(userInfo)
   }
 
   componentDidMount () {
@@ -72,6 +75,8 @@ class App extends React.Component {
       let url = 'http://localhost:2591'
       const { data } = await axios.get(`/auth/isUserLoggedIn`, {withCredentials: true})
       this.setUser(data.payload)
+      console.log('data',data, 'payload',data.payload)
+      // this.props.receiveUserStatus(data.payload)
     } catch (err) {
       // User does not have an active session in the backend. User is logged out so set loadingUser to false.
       if (err.message.includes(401)) {
@@ -109,7 +114,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isUserLoggedIn, loadingUser } = this.state;
+    const { isUserLoggedIn, loadingUser, user } = this.state;
 
     // if (loadingUser) { // If checking if user is authenticated has not completed display a loading animation otherwise render the app
     //   return <div>loading...</div>
@@ -126,7 +131,7 @@ class App extends React.Component {
           <Route path="/signup" render={this.renderAuthContainer} />
           {/* <PrivateRoute path="/users" component={Users} isUserLoggedIn={isUserLoggedIn} /> */}
           <PrivateRoute path="/profile" render={() => <h1> Profile </h1>} isUserLoggedIn={isUserLoggedIn} />
-           <Route path='/search' component={Search} />
+           <Route path='/search' render = {()=><Search user = {user} isUserLoggedIn={isUserLoggedIn}/>} /*component={Search} isUserLoggedIn={isUserLoggedIn}*//>
            <Route path='/video' component={Video} />
            <Route path='/about' component={About} />
           <Route exact path="/" component={Home} />
@@ -135,4 +140,7 @@ class App extends React.Component {
     );
   }
 }
+
+
+
 export default withRouter(App);
