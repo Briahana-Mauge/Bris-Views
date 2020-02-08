@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS youtube;
-CREATE DATABASE youtube;
+-- DROP DATABASE IF EXISTS youtube;
+-- CREATE DATABASE youtube;
 
-\c youtube;
+-- \c youtube;
 
 CREATE TABLE users
 (
