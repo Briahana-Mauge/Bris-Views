@@ -1,3 +1,4 @@
+
 import React from 'react';
 import axios from 'axios';
 import Result from './Result';
@@ -35,7 +36,7 @@ class Search extends React.Component {
         let newResults = []
         
 
-        let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${process.env.API_KEY}&q=${search}&type=video`
+        let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${process.env.REACT_APP_API_KEY}&q=${search}&type=video`
         try {
             let res = await axios.get(searchAPI)
             videos = res.data.items
