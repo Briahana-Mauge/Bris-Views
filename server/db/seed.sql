@@ -3,6 +3,10 @@
 
 -- \c youtube;
 
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS history;
+
+
 CREATE TABLE users
 (
     id SERIAL,
