@@ -4,6 +4,7 @@ import CommentForm from './CommentForm'
 import Comments from './Comments'
 import { RECEIVE_HISTORY } from './store/actionTypes';
 import { connect } from 'react-redux';
+import { Link} from 'react-router-dom'
 import axios from 'axios';
 
 
@@ -16,7 +17,6 @@ class Video extends React.Component {
             comment: '',
             name: '',
             comments: [],
-            // history: []
 
         }
     }
@@ -25,12 +25,13 @@ class Video extends React.Component {
     }
     componentDidMount = async()=> {
         const { id } = this.state
-        this.props.receiveHistory(id)
+        console.log(this.state)
+        // this.props.receiveHistory(id)
         let url = `http://localhost:2591/history/`
         
         try{
-            let video = await axios.post(url)
-            console.log(video)
+            // let video = await axios.post(url)
+            // console.log(video)
         }catch(err){
             console.log(err)
         }
@@ -66,6 +67,7 @@ class Video extends React.Component {
 
         return (
             <>
+            <Link to ='/'><button>Back</button></Link>
                 <YouTube videoId={id}
                     opts={opts}
                     onReady={this.ready} />

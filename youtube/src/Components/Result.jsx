@@ -6,9 +6,12 @@ class Result extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            results: props.results
+            results: props.results,
+            isUserLoggedIn: props.isUserLoggedIn
         }
+        console.log(props.isUserLoggedIn)
     }
+    
     renderVideos = () => {
         let { results } = this.state
         return (
@@ -42,7 +45,7 @@ class Result extends React.Component {
         // this.props.receiveHistory(results)
         return (
             <>
-                <Video id={results} />
+                <Video id={results} isUserLoggedIn = {this.props.isUserLoggedIn}/>
             </>
         )
     }
