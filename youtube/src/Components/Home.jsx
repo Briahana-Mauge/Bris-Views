@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Result from './Result';
 // import api from '../secret.js'
+let api = process.env.API_KEY
 
 class Home extends React.Component {
     constructor() {
@@ -17,8 +18,8 @@ class Home extends React.Component {
         const { search } = this.state;
         let videos = [];
         let newResults = []
-        let api = process.env.API_KEY
         
+
         let searchAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=relevance&key=${api}&q=${search}&type=video`
         try {
             let res = await axios.get(searchAPI)
